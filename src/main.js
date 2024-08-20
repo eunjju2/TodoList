@@ -34,40 +34,39 @@ const categoryAdd = document.querySelector('.category_add')
 const selectCategoryList = document.querySelector('.select-category-list')
 
 categoryAdd.addEventListener('click', function () {
-    const categoryCount = document.querySelectorAll('.category-item').length;
+    const categoryCount = document.querySelectorAll('.category-item2').length;
     const categoryAddItem = document.createElement('li') //li 요소 생성
     const categoryAddItem2 = document.createElement('li') //li 요소 생성
-    categoryAddItem.classList.add('category-item', `category${categoryCount}`);
-    categoryAddItem2.classList.add('category-item2', `category${categoryCount}`);
-    categoryList.insertBefore(categoryAddItem, categoryAdd); //추가 앞에 만들기
-    categoryAddItem.contentEditable = 'true'; //수정 가능한 요소로 만듦
-    categoryAddItem.focus();
+    categoryAddItem.classList.add('category-item', `category${categoryCount+1}`);
+    categoryAddItem2.classList.add('category-item2', `category${categoryCount+1}`);
+    selectCategoryList.insertBefore(categoryAddItem2, categoryAdd); //추가 앞에 만들기
+    categoryAddItem2.contentEditable = 'true'; //수정 가능한 요소로 만듦
+    categoryAddItem2.focus();
 
     
-    categoryAddItem.addEventListener('keydown', (event) => { 
+    categoryAddItem2.addEventListener('keydown', (event) => { 
         if (event.key === 'Enter') { //카테고리 입력창에서 엔터 입력 시  
             event.preventDefault(); // 엔터 입력으로 줄바꿈 방지
-            categoryAddItem.blur();
+            categoryAddItem2.blur();
         }
     })
     
-    categoryAddItem.addEventListener('blur', () => { //마우스로 카테고리 입력창 외 다른 곳 클릭 시 
-        categoryAddItem.contentEditable = 'false'; //포커스 잃으면 다시 수정 불가한 요소로 변경
+    categoryAddItem2.addEventListener('blur', () => { //마우스로 카테고리 입력창 외 다른 곳 클릭 시 
+        categoryAddItem2.contentEditable = 'false'; //포커스 잃으면 다시 수정 불가한 요소로 변경
         
         //공백만 입력됐을 시 추가 안되도록 함
-        if(categoryAddItem.textContent.trim().length === 0) {
-            categoryAddItem.remove();
+        if(categoryAddItem2.textContent.trim().length === 0) {
+            categoryAddItem2.remove();
             return false;
         }
-        categoryAddItem2.textContent = categoryAddItem.textContent;
-        selectCategoryList.appendChild(categoryAddItem2);
+        categoryAddItem.textContent = categoryAddItem2.textContent;
+        categoryList.appendChild(categoryAddItem);
     })
 
     //카테고리 선택 시
     categoryAddItem.addEventListener('click', categorySelect)
+    categoryAddItem2.addEventListener('click', categorySelect2)
 })
-
-
 
 document.querySelectorAll('.category-item').forEach(item => {
     item.addEventListener('click',categorySelect );
@@ -75,7 +74,6 @@ document.querySelectorAll('.category-item').forEach(item => {
 
 function categorySelect() {
     document.querySelector('.category-name').textContent = this.textContent;
-
     categoryToggleBtnEl.textContent = 'arrow_drop_down';
     categoryListContainer.classList.add('hidden')
     const todoItems = document.querySelectorAll('.item')
@@ -96,12 +94,11 @@ function categorySelect() {
     });
 }
 
-//전체보기
+//카테고리 정렬 초기화
 function categoryAll() {
     document.querySelector('.category-name').textContent ='카테고리'
     document.querySelectorAll('.item').forEach(item => item.classList.remove('hidden'));
 }
-
 
 
 
@@ -124,28 +121,27 @@ addBtn.addEventListener('click', todoList)
 
 
 //카테고리 선택
-const categoryArea = document.querySelector('.category-todo')
-const categoryList2 = document.querySelector('.category-list2')
-
-categoryArea.addEventListener('click', function () {
-    categoryList2.classList.toggle('hidden')
-    this.querySelector('button').textContent = categoryList2.classList.contains('hidden') ? 'arrow_drop_down' :'arrow_drop_up';
-
-    document.querySelectorAll('.category-item2').forEach(item => {
-        item.addEventListener('click', function() {
-            document.querySelector('.category-todo-name').textContent = this.textContent
-            selectCategoryName = this.classList[1]
-            console.log(selectCategoryName)
-        });
-    })
-
-})
-
 var selectCategoryName = '';
 
+const category2ToggleBtn = document.querySelector('.category-todo .arrow-button')
+const categoryList2 = document.querySelector('.category-list2')
 
+category2ToggleBtn.addEventListener('click', function () {
+    categoryList2.classList.toggle('hidden')
+    this.textContent = categoryList2.classList.contains('hidden') ? 'arrow_drop_down' :'arrow_drop_up';
+})
 
+document.querySelectorAll('.category-item2').forEach(item => {
+    item.addEventListener('click',categorySelect2);
+})
 
+function categorySelect2 () {
+    document.querySelector('.category-todo-name').textContent = this.textContent
+    category2ToggleBtn.textContent = 'arrow_drop_down';
+    categoryList2.classList.add('hidden')
+    selectCategoryName = this.classList[1]
+    
+}
 
 
 
