@@ -1,3 +1,8 @@
+body {
+    margin: 0;
+    box-sizing: border-box;
+}
+
 
 ul {
     list-style: none;
@@ -55,7 +60,7 @@ ul {
 .main-page .main-page_right .search-category {
     display: flex;
     justify-content: center;
-    margin: 15px;
+    margin: 10px;
 }
 
 .main-page .main-page_right .search-category .inner {
@@ -190,7 +195,7 @@ ul {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin: 15px;
+    margin: 10px;
 
 }
 
@@ -290,7 +295,7 @@ ul {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 15px;
+    margin: 10px;
 }
 
 .main-page .main-page_right .todo-list .list {
@@ -410,7 +415,7 @@ ul {
     display: flex;
     justify-content: center;
     margin-bottom: 0;
-    margin: 15px;
+    margin: 10px;
 }
 
 .main-page .main-page_right .completion_count .inner {
@@ -493,8 +498,8 @@ ul {
 .cancel-button, .calendar-button {
     background: none;
     border: none;
-    margin: 30px 20px 60px;
-    font-size: 60px;
+    margin: 20px;
+    font-size: 40px;
 }
 
 
@@ -505,7 +510,7 @@ ul {
     box-sizing: border-box;
     display: flex;
     justify-content: center;
-    margin: 20px;
+    margin: 10px;
 }
 
 .calendar-container .calendar {
@@ -625,7 +630,7 @@ ul {
 .slide-page .day-todo-container {
     display: flex;
     justify-content: center;
-    margin: 20px;
+    margin: 10px;
     
 }
 
