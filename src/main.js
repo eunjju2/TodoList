@@ -12,7 +12,6 @@ updateCounts(); //초기값
 
 
 // 카테고리 업다운
-
 const categoryToggleBtn = document.querySelector('.category .arrow-button') 
 const categoryToggleBtnEl = document.querySelector('.category .arrow-button p')
 const categoryListContainer = document.querySelector('.category-list-container');
@@ -72,6 +71,7 @@ document.querySelectorAll('.category-item').forEach(item => {
     item.addEventListener('click',categorySelect );
 })
 
+//카테고리 정렬
 function categorySelect() {
     document.querySelector('.category-name').textContent = this.textContent;
     categoryToggleBtnEl.textContent = 'arrow_drop_down';
@@ -120,7 +120,7 @@ addBtn.addEventListener('click', todoList)
 
 
 
-//카테고리 선택
+//입력창 내 카테고리 선택 시
 var selectCategoryName = '';
 
 const category2ToggleBtn = document.querySelector('.category-todo .arrow-button')
@@ -142,9 +142,6 @@ function categorySelect2 () {
     selectCategoryName = this.classList[1]
     
 }
-
-
-
 
 
 
@@ -244,9 +241,8 @@ function todoList () {
     list.classList.add('item');
     list.appendChild(itemContainer);
 
-
+    //리스트 추가 순서 고려
     orderAddList(list);
-
 
 
     //추가 완료되면 기존 입력값 지우기
@@ -447,12 +443,38 @@ function renderCalendar() {
 renderCalendar();
 
 
-//날짜에 해당하는 리스트 보여주기
+//캘린더 month 이동
+navs.forEach(nav => {
+    nav.addEventListener('click', event => {
+        const btnId = event.target.id;
 
+        if(btnId ==='prev' && month === 0) {
+            year --;
+            month = 11;
+        }else if(btnId === 'next' && month === 11) {
+            year ++;
+            month = 0;
+        }else {
+            month = btnId === 'next' ? month +1 : month -1;
+        }
+
+        date = new Date(year, month, new Date().getDate());
+        year = date.getFullYear();
+        month = date.getMonth();
+        renderCalendar()
+    })
+})
+
+
+
+//날짜에 해당하는 리스트 보여주기
 function dateSelect () {
     document.querySelectorAll('.selected').forEach(item => item.classList.remove('selected'))
     this.classList.add('selected')
 }
+
+
+//캘린더 아래 리스트 생성
 function dateMatchFunc() {
     dateCheck();
     if(!document.querySelector('.selected')){
@@ -477,15 +499,10 @@ function dateMatchFunc() {
         }
     });
     dayTodo.innerHTML = listHtml
-    
 
-    // const dayTodoList = document.querySelectorAll('.day-todo li');
-    // dayTodoList.addEventListener('click', function() {
-    //     this.classList.add('complete-todo')
-
-    // });
 }
 
+//리스트 있는 날짜 표시
 function dateCheck() {
     const haveTodoDate = document.querySelectorAll('.have-todo');
     document.querySelectorAll(".have-todo-date").forEach(li => {
@@ -502,30 +519,4 @@ function dateCheck() {
         }
     })
 }
-
-
-
-navs.forEach(nav => {
-    nav.addEventListener('click', event => {
-        const btnId = event.target.id;
-
-        if(btnId ==='prev' && month === 0) {
-            year --;
-            month = 11;
-        }else if(btnId === 'next' && month === 11) {
-            year ++;
-            month = 0;
-        }else {
-            month = btnId === 'next' ? month +1 : month -1;
-        }
-
-        date = new Date(year, month, new Date().getDate());
-        year = date.getFullYear();
-        month = date.getMonth();
-        renderCalendar()
-    })
-})
-
-
-
 
