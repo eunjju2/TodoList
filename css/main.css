@@ -649,6 +649,7 @@ ul {
     position: relative;
     margin: 15px 0;
     z-index: 2;
+    cursor: pointer;
 }
 
 
@@ -684,7 +685,7 @@ ul {
     transform: translate(-50%, -50%);
     background: #DFE1DC;
     border-radius: 50%;
-    z-index: -1;
+    z-index: -2;
 }
 
 
@@ -729,4 +730,10 @@ ul {
     padding: 10px;
     margin: 10px 20px;
     font-weight: 700;
+}
+
+
+.calendar-container .calendar .date-wrap ul li.have-todo-date{
+    color : #D94E73;
+    font-weight: 900;
 }

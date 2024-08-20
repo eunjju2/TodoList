@@ -205,7 +205,7 @@ function todoList () {
     date.textContent = dateValue;
     todo.textContent = todoValue;
 
-    date.classList.add('item-date');
+    date.classList.add('item-date', 'have-todo');
 
     if(!selectCategoryName){
         alert('카테고리를 선택하세요');
@@ -293,8 +293,10 @@ function todoList () {
 
     //수정 기능
     editBtn.addEventListener('click', function() {
-        todo.contentEditable = 'true'; //div 요소를 입력 가능하도록 하는 것
-        todo.focus(); //바로 수정창으로 이동하도록 함
+        if(!list.classList.contains('completed')) {
+            todo.contentEditable = 'true'; //div 요소를 입력 가능하도록 하는 것
+            todo.focus(); //바로 수정창으로 이동하도록 함
+        }
     })
     
  
@@ -317,6 +319,7 @@ function todoList () {
         //항목 카운트 함수 호출
         updateCounts();
         dateMatchFunc();
+
     })   
 }   
 
@@ -423,7 +426,6 @@ function renderCalendar() {
             year === new Date().getFullYear()
             ? 'class="today selected"'
             : "";
-
         datesHtml += `<li ${className}>${i}</li>`
     }
 
@@ -440,10 +442,9 @@ function renderCalendar() {
         date.addEventListener('click', dateSelect)
         date.addEventListener('click', dateMatchFunc)
     })
-    
+    dateCheck()
 }
 renderCalendar();
-
 
 
 //날짜에 해당하는 리스트 보여주기
@@ -453,6 +454,10 @@ function dateSelect () {
     this.classList.add('selected')
 }
 function dateMatchFunc() {
+    dateCheck();
+    if(!document.querySelector('.selected')){
+        return false;
+    }
    const selectDate = document.querySelector('.selected').textContent;
     let listHtml = '';
 
@@ -472,13 +477,30 @@ function dateMatchFunc() {
         }
     });
     dayTodo.innerHTML = listHtml
+    
 
     // const dayTodoList = document.querySelectorAll('.day-todo li');
     // dayTodoList.addEventListener('click', function() {
     //     this.classList.add('complete-todo')
 
     // });
+}
 
+function dateCheck() {
+    const haveTodoDate = document.querySelectorAll('.have-todo');
+    document.querySelectorAll(".have-todo-date").forEach(li => {
+        li.classList.remove('have-todo-date')
+    })
+    haveTodoDate.forEach(date => {
+        const dateArr = date.textContent.split('-').map(num =>parseInt(num))
+        if(dateArr[0] === year && dateArr[1] === (month+1)) {
+          document.querySelectorAll('.date-wrap ul li').forEach(listDate => {
+                if(dateArr[2] === parseInt(listDate.textContent)){
+                    listDate.classList.add('have-todo-date') 
+                }   
+            })
+        }
+    })
 }
 
 
