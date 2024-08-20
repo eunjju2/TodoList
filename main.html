@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="./css/main.css">
+
+    <script defer src="./src/main.js"></script>
+
+    <!-- font -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css">
+
+
+    <title>🍡TODO-LIST</title>
+</head>
+<body>
+    <div class="main-page">
+        <div class="main-page_left">
+            <button class="calendar-button material-symbols-outlined">event_available</button>
+        </div>
+        <div class="main-page_right">
+            <div class="search-category">
+                <div class="inner">
+                    <div class="category-wrap">
+                        <div class="category">
+                            <p class="category-name">카테고리</p>
+                            <button class="arrow-button">
+                                <p class="material-symbols-outlined">arrow_drop_down</p>
+                            </button>
+                        </div>
+                        <!-- list -->
+                         <div class="category-list-container hidden">
+                            <ul class="category-list">
+                                <li class="category-item category-all">전체보기</li>
+                                <li class="category-item category1">study</li>
+                                <li class="category-item category2">exercise</li>
+                                <li class="category-item category3">daily</li>
+                                <li class="category_add">추가</li>
+                            </ul>
+                         </div>
+                        
+                    </div>
+                    <div class="search-wrap">
+                        <div class="input-box">
+                            <input type="text" class="search-text" placeholder="검색">
+                        </div>
+                        <button class="search-button">
+                            <p class="material-symbols-outlined">search</p>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="make-todo">
+                <p>+ 추가</p>
+                <div class="make-todo-list hidden">
+                    <div class="make-todo-list_container">
+                        <div class="input_data">
+                            <input type="date" class="todo-date">
+                            <input type="text" class="todo-text" placeholder="할 일을 입력하세요">
+                        </div>
+                        <button class="input_button">
+                            <span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="todo-list">
+                <div class="list">
+                    <ul class="list-items">
+                        <!-- <li class="item">
+                            <div class="item_container">
+                                <div class="item_container_left">
+                                    <div class="category_date">
+                                        <div class="item-category category1">카테고리</div>
+                                        <div class="item-date">2024-08-14</div>
+                                    </div>
+                                    <div class="item-name">오늘의 할일1</div>
+                                </div>
+                                <div class="item_container_right">
+                                    <button class="item-checkbox material-symbols-outlined">check_box_outline_blank</button>
+                                    <button class="item-edit material-symbols-outlined">edit_square</button>
+                                    <button class="item-delete material-symbols-outlined">delete</button>
+                                </div>
+                            </div>
+                        </li> -->
+                    </ul>
+
+                </div>
+            </div>
+            <div class="completion_count">
+                <div class="inner">
+                    <div class="complete">
+                        <p><span class="completed-count">0</span> 개 / 완료</p>
+                    </div>
+                    <div class="pending">
+                        <p><span class="pending-count">0</span> 개 / 미완료</p>
+                    </div>
+                </div>
+        
+            </div>
+
+
+        </div>
+    </div>
+    <div class="slide-page">
+        <button class="cancel-button material-symbols-outlined">arrow_back</button>
+        <div class="calendar-todo-wrap">
+            <div class="calendar-container">
+                <div class="calendar">
+                    <header class="calendar-header">
+                        <h2>ddd</h2>
+                        <nav>
+                            <button id="prev" class="material-symbols-outlined">arrow_back_ios</button>
+                            <button id="next" class="material-symbols-outlined">arrow_forward_ios</button>
+                        </nav>
+                    </header>
+                    <section class="date-wrap">
+                        <ul class="days">
+                            <li>일</li>
+                            <li>월</li>
+                            <li>화</li>
+                            <li>수</li>
+                            <li>목</li>
+                            <li>금</li>
+                            <li>토</li>
+                        </ul>
+                        <ul class="dates">
+                        </ul>
+                    </section>
+                </div>
+            </div>
+            <div class="day-todo-container">
+                <ul class="day-todo">
+                </ul>
+            </div>
+        </div>  
+    </div>
+</body>
+</html>
