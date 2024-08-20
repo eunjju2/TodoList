@@ -13,10 +13,12 @@ updateCounts(); //초기값
 
 // 카테고리 업다운
 
-const categoryToggleBtn = document.querySelector('.arrow-button') 
-const categoryToggleBtnEl = document.querySelector('.arrow-button p')
+const categoryToggleBtn = document.querySelector('.category .arrow-button') 
+const categoryToggleBtnEl = document.querySelector('.category .arrow-button p')
 const categoryListContainer = document.querySelector('.category-list-container');
 const categoryList = document.querySelector('.category-list')
+
+
 
 categoryToggleBtn.addEventListener('click', () => {
     const isHidden = categoryListContainer.classList.contains('hidden');
@@ -29,10 +31,14 @@ var categoryName = '';
 
 //카테고리 추가
 const categoryAdd = document.querySelector('.category_add')
+const selectCategoryList = document.querySelector('.select-category-list')
+
 categoryAdd.addEventListener('click', function () {
     const categoryCount = document.querySelectorAll('.category-item').length;
     const categoryAddItem = document.createElement('li') //li 요소 생성
-    categoryAddItem.classList.add('category-item', `category${categoryCount+1}`);
+    const categoryAddItem2 = document.createElement('li') //li 요소 생성
+    categoryAddItem.classList.add('category-item', `category${categoryCount}`);
+    categoryAddItem2.classList.add('category-item2', `category${categoryCount}`);
     categoryList.insertBefore(categoryAddItem, categoryAdd); //추가 앞에 만들기
     categoryAddItem.contentEditable = 'true'; //수정 가능한 요소로 만듦
     categoryAddItem.focus();
@@ -53,6 +59,8 @@ categoryAdd.addEventListener('click', function () {
             categoryAddItem.remove();
             return false;
         }
+        categoryAddItem2.textContent = categoryAddItem.textContent;
+        selectCategoryList.appendChild(categoryAddItem2);
     })
 
     //카테고리 선택 시
@@ -88,6 +96,13 @@ function categorySelect() {
     });
 }
 
+//전체보기
+function categoryAll() {
+    document.querySelector('.category-name').textContent ='카테고리'
+    document.querySelectorAll('.item').forEach(item => item.classList.remove('hidden'));
+}
+
+
 
 
 //'+추가' 버튼 누를 때
@@ -105,6 +120,34 @@ makeTodoBtn.addEventListener('click', () => {
 // + 버튼 클릭 시
 const addBtn = document.querySelector('.input_button');
 addBtn.addEventListener('click', todoList)
+
+
+
+//카테고리 선택
+const categoryArea = document.querySelector('.category-todo')
+const categoryList2 = document.querySelector('.category-list2')
+
+categoryArea.addEventListener('click', function () {
+    categoryList2.classList.toggle('hidden')
+    this.querySelector('button').textContent = categoryList2.classList.contains('hidden') ? 'arrow_drop_down' :'arrow_drop_up';
+
+    document.querySelectorAll('.category-item2').forEach(item => {
+        item.addEventListener('click', function() {
+            document.querySelector('.category-todo-name').textContent = this.textContent
+            selectCategoryName = this.classList[1]
+            console.log(selectCategoryName)
+        });
+    })
+
+})
+
+var selectCategoryName = '';
+
+
+
+
+
+
 
 
 
@@ -130,8 +173,6 @@ dateArea.value = formattedDate;
 
 
 
-
-
 //작성한 할일을 투두리스트에 추가
 function todoList () {
     const dateValue = dateArea.value;
@@ -142,7 +183,6 @@ function todoList () {
         alert('날짜와 할 일을 모두 입력하세요.');
         return false; 
     }
-
 
     //HTML 요소 생성
     const itemContainer = document.createElement('div');
@@ -171,15 +211,15 @@ function todoList () {
 
     date.classList.add('item-date');
 
-    if(!categoryName || categoryName ==='category-all'){
+    if(!selectCategoryName){
         alert('카테고리를 선택하세요');
         return false;
     }
     todo.classList.add('item-name'); 
     
 
-    category.textContent = document.querySelector(`.${categoryName}`).textContent
-    category.classList.add('item-category', `${categoryName}`)//해당 카테고리 클래스 함께 추가
+    category.textContent = document.querySelector(`.${selectCategoryName}`).textContent
+    category.classList.add('item-category', `${selectCategoryName}`)//해당 카테고리 클래스 함께 추가
 
 
     //3가지 버튼에 클래스값 부여
@@ -208,7 +248,10 @@ function todoList () {
     list.classList.add('item');
     list.appendChild(itemContainer);
 
-    document.querySelector('.list-items').appendChild(list);
+
+    orderAddList(list);
+
+
 
     //추가 완료되면 기존 입력값 지우기
     inputArea.value = ''
@@ -218,6 +261,11 @@ function todoList () {
     //항목 카운트 함수 호출
     updateCounts();
     dateMatchFunc();
+
+
+
+    //전체보기로 돌아가기
+    categoryAll();
 
 
     //완료 기능
@@ -233,7 +281,12 @@ function todoList () {
         }
 
         // 맨 아래로 이동
-        document.querySelector('.list-items').appendChild(list);
+        if(list.classList.contains('completed')) {
+            document.querySelector('.list-items').appendChild(list);
+        }else {
+            orderAddList(list);
+        }
+        
 
         //항목 카운트 함수 호출
         updateCounts();
@@ -302,6 +355,17 @@ searchInput.addEventListener('keydown', (event) => { //검색 입력창에서 �
 });
 
 searchBtn.addEventListener('click', searchTodos);
+
+
+//리스트 추가 순서
+function orderAddList(list) {
+    const completedItem = document.querySelector('li.completed');
+    if (completedItem) {
+        completedItem.parentNode.insertBefore(list, completedItem);
+    } else {
+        document.querySelector('.list-items').appendChild(list);
+    }
+}
 
 
 // 슬라이드
