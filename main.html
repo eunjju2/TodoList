@@ -53,11 +53,24 @@
             </div>
 
             <div class="make-todo">
-                <p>+ 추가</p>
+                <p class="make-todo-add">+ 추가</p>
                 <div class="make-todo-list hidden">
                     <div class="make-todo-list_container">
                         <div class="input_data">
-                            <input type="date" class="todo-date">
+                            <div class="category-date_container">
+                                <div class="category-todo">
+                                    <p class="category-todo-name">카테고리</p>
+                                    <button class="arrow-button material-symbols-outlined">arrow_drop_down</button>
+                                    <div class="category-list2 hidden">
+                                        <ul class="select-category-list">
+                                            <li class="category-item2 category1">study</li>
+                                            <li class="category-item2 category2">exercise</li>
+                                            <li class="category-item2 category3">daily</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <input type="date" class="todo-date">
+                            </div>
                             <input type="text" class="todo-text" placeholder="할 일을 입력하세요">
                         </div>
                         <button class="input_button">
